@@ -1,3 +1,4 @@
 #The real file name should be .env
 CONNECTIONSTRING=<connection string, no any quote>
 PORT=<port value>
+JWTSECRET=<secret string.>
