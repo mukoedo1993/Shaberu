@@ -1,0 +1,13 @@
+
+/*************app.js at course 71st*********/
+//For nearly every single template in our app, we are going to want that template to have access to the current user session data like username and Avatar... 
+app.use(function(){
+    app.use(function(req, res, next){
+        //We are telling express to run this function for every request.
+        
+        // working for an object available with our ejs template
+        res.locals.user = req.session.user// course 71st
+        
+        next() // run the actual particular function for the particular router
+    })
+})

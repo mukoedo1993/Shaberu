@@ -1,0 +1,10 @@
+      <!--red rectangle error message shows the invalid username and password -->
+      <% errors.forEach(function(message) { %>  <!--execute this line of code... -->
+        <div class="alert alert-danger text-center"><%= message %></div> <!--Print this line of code... -->
+       <% }) %>  <!--execute this line of code... -->
+    
+    
+       <% success.forEach(function(message) { %>  <!--execute this line of code... -->
+        <div class="alert alert-success text-center"><%= message %></div> <!--Print this line of code... -->
+       <% }) %>  <!--execute this line of code... -->
+    

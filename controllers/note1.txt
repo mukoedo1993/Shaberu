@@ -1,0 +1,27 @@
+Hi Nicolas,
+
+I am having the same issue.  Here's what I found.
+
+Using Compass I noted that the _id that is stored as a foreign key in the post document does not have a corresponding record (document) in the users file.  Therefore the lookup is not returning anything thus the empty authorDocument.
+
+To prove my point, I manually updated the author field in my post document to equal the _id that I copy pasted from it's record(document) in the users file.  Now when I execute the single-post page I am returning a valid authorDocument as expected.
+
+So I asked myself why am I getting a bogus _id in the users file?  So I looked at the userController where the original user document is created and guess what I found:
+
+In both the login AND register functions i had:
+
+req.session.user = {avatar: user.avatar, username: user.data.username, _id: user._id}
+
+instead of:
+
+req.session.user = {avatar: user.avatar, username: user.data.username, _id: user.data._id}
+
+So I fixed the file, deleted all documents from both the users and posts files, put up a new user then a new post and voila, tout va bien.
+
+Now there's no guarantee that your error is the same as mine but if you follow my debugging path you might be able to pinpoint your problem.
+
+Hope this helps.
+
+Bob
+
+//from the udemy user Bob

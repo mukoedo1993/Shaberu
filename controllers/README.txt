@@ -1,0 +1,3 @@
+We will goint to have user accounts, register form, login or logout of...
+
+each file of controllers will contain relevant functions for that feature.
