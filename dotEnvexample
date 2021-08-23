@@ -3,4 +3,4 @@
 CONNECTIONSTRING=<connection string, no any quote>
 PORT=<port value>
 JWTSECRET=<secret string.>
-SENDGRIDAPIKEY=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
+SENDGRIDAPIKEY=<send grid key>
