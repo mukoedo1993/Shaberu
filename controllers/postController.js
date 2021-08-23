@@ -4,7 +4,7 @@ const ObjectID1 = require('mongodb').ObjectID
 
 const sendgrid = require('@sendgrid/mail')
 
-sendgrid.setApiKey(process.env.SENDGRIDAPIKEY)
+sendgrid.setApiKey(process.env.SENDGRIDAPIKEY) //send grid email
 
 exports.viewCreateScreen = function(req, res) {
     res.render('create-post'
@@ -13,7 +13,7 @@ exports.viewCreateScreen = function(req, res) {
 }
 
 
-exports.create = function(req, res) {
+exports.create = async function(req, res) {
     let post = new Post(req.body, req.session.user._id) // pass the submitted form data
 
     //Set this method up so it will return a promise...
@@ -22,11 +22,15 @@ exports.create = function(req, res) {
 
        sendgrid.send({
            to: 'kanashimino93@gmail.com',
-           from: 'test@test.com',
+           from: 'wangzcyuanfang1997@gmail.com',
            subject: 'Congrats on creating a new post!',
            text: 'You did a great job of creating a post.',
            html: 'You did a <strong>great</strong> job of creating a post.'
-       })
+       }).then(
+           () => {   console.log('Message sent')}
+       ).catch(
+        (error) => console.log(error.response.body)
+       )
        req.flash("success", "new post successfully created")
        console.log("line 17th")
        console.log(newId)
