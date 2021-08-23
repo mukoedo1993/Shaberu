@@ -5,3 +5,6 @@ Even though most of its functions could perform well, users' experience on this 
 
 course 122nd:
 It will be well if an app could send an email to users...
+```
+npm install @sendgrid/mail
+```

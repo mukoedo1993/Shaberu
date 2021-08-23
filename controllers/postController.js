@@ -2,6 +2,10 @@ const Post = require('../models/Post')
 
 const ObjectID1 = require('mongodb').ObjectID
 
+const sendgrid = require('@sendgrid/mail')
+
+sendgrid.setApiKey(process.env.SENDGRIDAPIKEY)
+
 exports.viewCreateScreen = function(req, res) {
     res.render('create-post'
   //  , {username: req.session.user.username, avatar: req.session.user.avatar} // commented in course 71st
@@ -15,6 +19,14 @@ exports.create = function(req, res) {
     //Set this method up so it will return a promise...
 
     post.create().then(function(newId) {
+
+       sendgrid.send({
+           to: 'kanashimino93@gmail.com',
+           from: 'test@test.com',
+           subject: 'Congrats on creating a new post!',
+           text: 'You did a great job of creating a post.',
+           html: 'You did a <strong>great</strong> job of creating a post.'
+       })
        req.flash("success", "new post successfully created")
        console.log("line 17th")
        console.log(newId)
