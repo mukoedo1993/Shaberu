@@ -1,0 +1,3 @@
+CONNECTIONSTRING=mongodb+srv://complexAppHehe:WOHENshousi1984@cluster0.rqdp8.mongodb.net/complexApp?authSource=admin&replicaSet=atlas-ignr3c-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true
+PORT=3000
+JWTSECRET=hehe2cao3
