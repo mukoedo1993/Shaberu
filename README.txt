@@ -8,3 +8,7 @@ It will be well if an app could send an email to users...
 ```
 npm install @sendgrid/mail #sendgrid 
 ```
+
+
+Procile is no longer required now when you are delpoying via heroku:
+https://devcenter.heroku.com/changelog-items/370
