@@ -17,3 +17,13 @@ My `Procfile` is:
 ```
 web: node db.js
 ```
+
+You could have a local .env file like below:
+```
+#The real file name should be .env
+#Set these variables either via .env. Or, if you want to deploy this via heroku, you could set these as Config Vars.
+CONNECTIONSTRING=<connection string, no any quote>
+PORT=<port value>
+JWTSECRET=<secret string.>
+SENDGRIDAPIKEY=<send grid key>
+```
