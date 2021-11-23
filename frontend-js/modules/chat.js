@@ -2,7 +2,7 @@ import DOMPurify from 'dompurify'
 
 export default class Chat {
     constructor () {
-        alert("Chat feature is loading")
+        //alert("Chat feature is loading")
 
 
         this.openedYet = false
