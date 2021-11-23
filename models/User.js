@@ -69,7 +69,7 @@ User.prototype.validate = function() {
         }
     
         if (this.data.username.length > 0 && this.data.username.length < 3) {
-            console.log("hehe")
+            //console.log("hehe")
             this.errors.push("Username must be at least 3 chars")
         }
         if (this.data.username.length > 30 ) {
@@ -81,7 +81,7 @@ User.prototype.validate = function() {
         if (this.data.username.length > 2 && this.data.username.length < 31 && validator.isAlphanumeric(this.data.username)) {
             let usernameExists = await userCollection.findOne({username: this.data.username}) // If mongodb does find a matching document, that's what this promise will resolve to.
             // await keyword: the Javascript will freeze for the operations until this operation actually resolves this projects.
-            console.log("hehe")
+            //console.log("hehe")
     
             if(usernameExists) {
                 this.errors.push("That username is already taken.")
@@ -153,7 +153,7 @@ User.prototype.register = function(){
             this.data.password = bcrypt.hashSync(this.data.password ,salt) //first value is tha password you want to encrypt, the second value is the salt value.
     
     
-            console.log(this.data)
+            //console.log(this.data)
             await userCollection.insertOne(this.data) //because we have already cleaned up and validate that data.
             //we need to make sure this operation will compelte before resolve is called...
 

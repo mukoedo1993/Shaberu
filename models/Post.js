@@ -63,9 +63,9 @@ Post.prototype.create = function() { //where we will actually store our data in 
             //This mongodb method is going to return a promise, and when that promise resolves, it's going to resolve with
             //a bunch of information about the database action that just took place.
             postsCollection.insertOne(this.data).then((info) => {
-                console.log(this.data)
+                //console.log(this.data)
                 resolve(info.ops[0]._id)//to resolve this brand-new id
-                console.log("info.ops[0]._id" + info.ops[0]._id)
+                //console.log("info.ops[0]._id" + info.ops[0]._id)
         }).catch(() => {
             this.errors.push("Please try again later.") // server problem, not users' or database's connection problem.
 
@@ -171,10 +171,10 @@ Post.findSingleById = function(id, visitorId) {
            {$match: {_id: new ObjectID(id)}}
        ], visitorId)
         if (posts.length) {
-            console.log("here posts length post.js")
+            //console.log("here posts length post.js")
             
-            console.log(visitorId)
-            console.log(id)
+            //console.log(visitorId)
+            //console.log(id)
             posts[0].authorId = visitorId
             
             resolve(posts[0])

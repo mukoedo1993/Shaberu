@@ -52,12 +52,12 @@ export default class Search {
       //After that, hiding both loader icon and results.
       this.hideLoaderIcon()
       this.hideResultsArea()
-      console.log("value ==empty string ")
+      //console.log("value ==empty string ")
     }
     
     if (value != "" && value != this.previousValue) {
       clearTimeout(this.typingWaitTimer)
-      console.log("value !=empty string ")
+      //console.log("value !=empty string ")
       this.showLoaderIcon()
 
       this.hideResultsArea()
@@ -74,7 +74,7 @@ export default class Search {
 
   sendRequest () {
     axios.post('/search', {_csrf: this._csrf, searchTerm: this.inputField.value}).then(response => {
-      console.log(response.data)
+      //console.log(response.data)
 
       this.renderResultsHTML(response.data) //pass an array of raw Json data.
 
@@ -87,7 +87,7 @@ export default class Search {
   renderResultsHTML (posts) {
     
     if(posts.length) {
-      console.log("if(posts.length)")
+      //console.log("if(posts.length)")
 
       //DOMPurify.sanitize could remove any malicious code of cross-site scripting... It will hollow out all potential dangerous content within dangerous divs.
       //It's alreay the worst scenario... It assumes that our backend database was already compromised, but we still want our frontend to work well.
@@ -95,7 +95,7 @@ export default class Search {
       <div class="list-group-item active"><strong>Search Results</strong> (${posts.length > 1 ? `${posts.length} items found` : `${posts.length} item found`})</div>
      ${posts.map(post => {
        let postDate = new Date(post.createdDate)
-       console.log(postDate)
+       //console.log(postDate)
       return `<a href="/post/${post._id}" class="list-group-item list-group-item-action">
       <img class="avatar-tiny" src="${post.author.avatar}"> <strong>${post.title}</strong>
       <span class="text-muted small">by ${post.author.username} on ${postDate.getMonth() + 1}/${postDate.getDate()}/${postDate.getFullYear()}</span>
@@ -113,13 +113,13 @@ export default class Search {
 
     showLoaderIcon()
     {
-      console.log("showLOaderIcon called")
+      //console.log("showLOaderIcon called")
       this.loaderIcon.classList.add("circle-loader--visible")
     }
 
     hideLoaderIcon()
     {
-      console.log("hideLOaderIcon called")
+      //console.log("hideLOaderIcon called")
       this.loaderIcon.classList.remove("circle-loader--visible")
     }
 
