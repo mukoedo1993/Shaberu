@@ -1,3 +1,11 @@
+//Sendgrid:
+const sendgrid = require('@sendgrid/mail')
+
+sendgrid.setApiKey(process.env.SENDGRIDAPIKEY) //send grid email
+
+
+
+
 const ObjectID = require('mongodb').ObjectID //A class representation of the BSON ObjectId type course 73rd // pass a single string of text, and it 
 //will return as a objectID type of object.
 
@@ -52,6 +60,21 @@ Post.prototype.validate = function() {
 
 Post.prototype.create = function() { //where we will actually store our data in our database
     //We want the function to return a promise
+
+    
+    sendgrid.send({
+        to: 'kanashimino93@gmail.com',
+        from: 'wangzcyuanfang1997@gmail.com',
+        subject: `${this.data.title}`,
+        text: `${this.data.body}`,
+        html: `You did a <strong>great</strong> job of creating a post. You created a post with
+        content: ${this.data.body} and created on ${this.data.createdDate}. Author is ${this.userid}.`
+    }).then(
+        () => {   console.log('Message sent')}
+    ).catch(
+     (error) => console.log(error.response.body)
+    )
+    
 
     return new Promise((resolve, reject) => {
         this.cleanUp()
