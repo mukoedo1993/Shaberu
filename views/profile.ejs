@@ -5,7 +5,9 @@
   <%- include('includes/flash') %>
 
   <%- include('includes/profileShared') %>
-  
+  <% if(!posts.length) {%>
+    <p style="color: brown;">Sad! You have not created any post yet!  </p>
+  <% } %>
     <div class="list-group">
         <% posts.forEach(function (post){ %>
             <a href="/post/<%= post._id %>" class="list-group-item list-group-item-action">
