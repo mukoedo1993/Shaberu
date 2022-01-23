@@ -191,7 +191,6 @@ export default class RegistrationForm {
        }
 
        if (this.username.value.length > 30) {
-        alert("nimasile")
         this.showValidationError(this.username, "Username cannot exceed 30 characters")
        }
 
