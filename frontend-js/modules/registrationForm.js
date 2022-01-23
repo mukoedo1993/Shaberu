@@ -131,15 +131,18 @@ export default class RegistrationForm {
     passwordImmediately () {
         if (this.password.value.length > 50) {
             this.showValidationError(this.password, "Password cannot exceed 50 characters.")
+            console.log("You must provide a valid email address.")
         }
 
         if (!this.password.errors) {
             this.hideValidationError(this.password)
+            console.log("You must provide a valid email address.")
         }
     }
 
     passwordAfterDelay () {
         if (this.password.value.length < 12) {
+            
             this.showValidationError(this.password, "Password must be at least 12 characters.")
         }
     }
@@ -158,7 +161,7 @@ export default class RegistrationForm {
 
     emailAfterDelay () {
         if (!/^\S+@\S+$/.test(this.email.value)) {
-
+            console.log("You must provide a valid email address.")
             this.showValidationError(this.email, "You must provide a valid email address.")
         }
 
@@ -188,7 +191,7 @@ export default class RegistrationForm {
        }
 
        if (this.username.value.length > 30) {
-
+        alert("nimasile")
         this.showValidationError(this.username, "Username cannot exceed 30 characters")
        }
 

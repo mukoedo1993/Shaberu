@@ -1,6 +1,6 @@
 const Post = require('../models/Post')
 
-const ObjectID1 = require('mongodb').ObjectID
+//const ObjectID1 = require('mongodb').ObjectID
 
 exports.viewCreateScreen = function(req, res) {
     res.render('create-post'
