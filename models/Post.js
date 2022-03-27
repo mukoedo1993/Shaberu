@@ -3,9 +3,6 @@ const sendgrid = require('@sendgrid/mail')
 
 sendgrid.setApiKey(process.env.SENDGRIDAPIKEY) //send grid email
 
-
-
-
 const ObjectID = require('mongodb').ObjectID //A class representation of the BSON ObjectId type course 73rd // pass a single string of text, and it 
 //will return as a objectID type of object.
 
@@ -237,7 +234,7 @@ Post.delete = function(postIdToDelete, currentUserId) {
 } 
 
 
-Post.search = function(searchTerm) {
+Post.search = function(searchTerm) { 
     return new Promise(async(resolve, reject) => {
         if (typeof(searchTerm) == "string") { //security reason
             let posts = await Post.reusablePostQuery([
