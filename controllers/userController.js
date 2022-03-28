@@ -156,7 +156,7 @@ exports.logout = function(req, res){
 
 exports.register = function(req , res){
 
-    let user = new User(req.body)
+    let user = new User(req.body)   //The req. body object allows you to access data in a string or JSON object from the client side. 
 
     user.register().then(() => {
  
