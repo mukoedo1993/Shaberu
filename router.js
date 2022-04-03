@@ -38,7 +38,11 @@ router.get('/profile/:username/followers', userController.ifUserExists, userCont
 router.get('/profile/:username/following', userController.ifUserExists, userController.sharedProfileData, userController.profileFollowingScreen)
 
 // send email to the owner:
+router.get('/view-feedback', postController.showFeedbackPage)
+
 router.post('/send-feedback', postController.sendFeedback)
+
+
 
 // post related routes
 router.get('/create-post', userController.mustBeLoggedIn ,postController.viewCreateScreen) // But we want to make sure that we could only visit this post if we are logged in.

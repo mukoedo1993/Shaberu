@@ -1,3 +1,22 @@
 <%- include('includes/header') %>
+<h2>send feedback here: </h2>
+<%- include('includes/flash') %>
+<form action="/send-feedback" method="POST">
+   
+    <div class="form-group">
+      <label for="feedback-title" class="text-muted mb-1"><small>Title of your Feedback</small></label>
+      <input required name="title" id="feedback-title" class="form-control form-control-lg form-control-title" type="text" placeholder="" autocomplete="off">
+    </div>
 
+    <div class="form-group">
+      <label for="feedback-body" class="text-muted mb-1"><small>Body Content</small></label>
+      <textarea required name="body" id="feedback-body" class="body-content tall-textarea form-control" type="text" placeholder="The owner of this website will receive your message via email. "></textarea>
+    </div>
+
+    <!--name is strict here. Because the name here is the csrf package is going to look for.-->
+    <!--No way a malicious user could access to the value.-->
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    
+    <button class="btn btn-primary">Save New Post</button>
+  </form>
 <%- include('includes/footer') %>

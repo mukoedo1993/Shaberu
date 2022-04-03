@@ -1,5 +1,10 @@
 const Post = require('../models/Post')
 
+
+const sendgrid = require('@sendgrid/mail')
+
+sendgrid.setApiKey(process.env.SENDGRIDAPIKEY)
+
 //const ObjectID1 = require('mongodb').ObjectID
 
 exports.viewCreateScreen = function(req, res) {
@@ -122,6 +127,32 @@ exports.edit = async function(req, res) {
     })
 }
 
+
+exports.showFeedbackPage = async function (req, res) {
+    res.render("feedback-page")
+}
+
+exports.sendFeedback = async function (req, res) {
+    sendgrid.send({
+        to: 'kanashimino93@gmail.com',
+        from: 'wangzcyuanfang1997@gmail.com',
+        subject: `${req.body.title}`,
+        text: `${req.body.body}`,
+        html: `Someone has send you a message.
+        content: ${req.body.body} and title is ${req.body.title}.`
+    }).then(
+        () => {   console.log('Message sent')
+        req.flash("success", "You have successfully submit an email to the owner.")
+        req.session.save(function() {
+            res.redirect(`view-feedback`)
+        }) }
+    ).catch(
+     (error) => console.log(error.response.body)
+    )
+
+   
+
+}
 
 
 exports.delete = function (req, res) {
