@@ -11,7 +11,11 @@ const postsCollection = require('../db').db().collection("posts") // to access t
 
 const followsCollection = require('../db').db().collection("follows") // to access to the database
 
+const mailBackupCollection = require('../db').db().collection("mailsBackup")  // to access mails' backup
+
 postsCollection.createIndex({title: "text", body: "text"})
+
+mailBackupCollection.createIndex({title: "text", body: "text"})
 
 const User = require('./User')
 
@@ -23,6 +27,11 @@ let Post = function(data, userid, requestedPostId) {
     this.userid = userid
     this.requestedPostId = requestedPostId
 }
+
+Post.prototype.feedbackCreate = function(emailTitle, emailContent) {
+    mailBackupCollection.insertOne({emailTitle, emailContent})
+}
+
 
 // To make sure that both our titles and text fields are strings, rather than malicious objects or other weird things...
 Post.prototype.cleanUp = function() {
@@ -99,6 +108,8 @@ Post.prototype.create = function() { //where we will actually store our data in 
     })
 
 }
+
+
 
 Post.prototype.update = function() {
     return new Promise(async (resolve, reject) => {

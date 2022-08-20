@@ -1,6 +1,5 @@
 const Post = require('../models/Post')
 
-
 const sendgrid = require('@sendgrid/mail')
 
 sendgrid.setApiKey(process.env.SENDGRIDAPIKEY)
@@ -133,6 +132,9 @@ exports.showFeedbackPage = async function (req, res) {
 }
 
 exports.sendFeedback = async function (req, res) {
+    let feedbackInterface = new Post()
+    feedbackInterface.feedbackCreate(req.body.title, req.body.body)
+
     sendgrid.send({
         to: 'kanashimino93@gmail.com',
         from: 'wangzcyuanfang1997@gmail.com',
