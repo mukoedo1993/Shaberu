@@ -13,4 +13,4 @@ PORT=<port value>
 JWTSECRET=<secret string.>
 SENDGRIDAPIKEY=<send grid key>
 ```
-Note that I have moved from heroku to render for free deploying services.
+Note that I have moved from heroku to onrender for free deploying services.
