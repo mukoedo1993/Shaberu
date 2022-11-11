@@ -2,7 +2,7 @@ const express = require('express')
 
 const session = require('express-session')
 
-const MongoStore = require('connect-mongo')(session)
+const MongoStore = require('connect-mongo')//(session)
 
 const flash = require('connect-flash')
 
@@ -29,7 +29,7 @@ app.use('/api', require('./router-api')) //All of app.use() below will not be ap
 //course 65th update: modify this object so that it could save data in mongodb database.
 let sessionOptions = session({
     secret: "Javascript is sooooooo cooooooool",
-    store: new MongoStore({client: require('./db')}),
+    store: MongoStore.create({client: require('./db')}),
     resave: false,
     saveUninitialized: false,
     cookie: {maxAge: 1000 * 60 *60 *24 , httpOnly: true} // 1 day cookie to expire
