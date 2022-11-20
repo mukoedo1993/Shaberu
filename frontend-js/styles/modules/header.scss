@@ -1,0 +1,17 @@
+.header-bar {
+    background-color: $customized_black_color;
+    :hover{
+        background-color: $customized_red_color;
+    }
+  }
+    
+  .header-search-icon {
+    position: relative;
+    top: $top_px;
+  }
+  
+  .header-chat-icon {
+    cursor: pointer;
+    position: relative;
+    top: $top_px;
+  }

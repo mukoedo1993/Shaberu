@@ -95,9 +95,10 @@ Post.prototype.create = function() { //where we will actually store our data in 
                 //console.log(this.data)
                 resolve(info.ops[0]._id)//to resolve this brand-new id
                 //console.log("info.ops[0]._id" + info.ops[0]._id)
-        }).catch(() => {
+        }).catch((e) => {
             this.errors.push("Please try again later.") // server problem, not users' or database's connection problem.
-
+            console.log("line 100 test")
+            console.log(e)
             reject(this.errors)
         }) // However, it is an asynchronous operation. We have no idea how long 
           

@@ -1,3 +1,4 @@
+import './styles/main.scss'
 import Search from './modules/search'
 
 import Chat from './modules/chat'
