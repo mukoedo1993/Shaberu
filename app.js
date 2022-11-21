@@ -42,7 +42,7 @@ app.use(flash()) //add the flash feature to our application: course 66th
 app.use(function(req, res, next){
     // make our markdown function avaiable from within our ejs templates
     res.locals.filterUserHTML = function(content) {
-        return sanitizeHTML(markdown(content), {allowedTags: ['p', 'br', 'ul', 'ol', 'li', 'strong', 'bold', 'i', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ], allowedAttributes: {}})
+        return sanitizeHTML(markdown.parse(content), {allowedTags: ['p', 'br', 'ul', 'ol', 'li', 'strong', 'bold', 'i', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ], allowedAttributes: {}})
         //after sanitizing, our browser still wants to render it as a link, but the sanitizing disallow it. However, allowedTags are forgiven.
     }
 
