@@ -20,6 +20,7 @@ mailBackupCollection.createIndex({title: "text", body: "text"})
 const User = require('./User')
 
 const sanitizeHTML = require('sanitize-html')
+const { application } = require('express')
 
 let Post = function(data, userid, requestedPostId) {
     this.data = data // incoming requests body data
@@ -66,34 +67,60 @@ Post.prototype.validate = function() {
 
 Post.prototype.create = function() { //where we will actually store our data in our database
     //We want the function to return a promise
-
-    
-    sendgrid.send({
-        to: 'kanashimino93@gmail.com',
-        from: 'wangzcyuanfang1997@gmail.com',
-        subject: `${this.data.title}`,
-        text: `${this.data.body}`,
-        html: `You did a <strong>great</strong> job of creating a post. You created a post with
-        content: ${this.data.body} and created on ${this.data.createdDate}. Author is ${this.userid}.`
-    }).then(
-        () => {   console.log('Message sent')}
-    ).catch(
-     (error) => console.log(error.response.body)
-    )
+ 
     
 
-    return new Promise((resolve, reject) => {
+    
+
+    return new Promise(async (resolve, reject) => {
+
+        sendgrid.send({
+            to: 'kanashimino93@gmail.com',
+            from: 'wangzcyuanfang1997@gmail.com',
+            subject: `${this.data.title}`,
+            text: `${this.data.body}`,
+            html: `You did a <strong>great</strong> job of creating a post. You created a post with
+            content: ${this.data.body} and created on ${this.data.createdDate}. Author is ${this.userid}.`
+        }).then(
+            () => {   console.log('Message sent');return}
+            
+        ).catch(
+         (error) => console.log(error.response.body)
+        )
+
         this.cleanUp()
         this.validate()
 
         if (!this.errors.length) {
             //save post into database
 
+            try{
+            const info = await postsCollection.insertOne(this.data)
+            resolve(info.insertedId)
+            console.log("test point 99")
+            console.log(info.insertedId)
+            return (info.insertedId.toString())
+            console.log(info.insertedId)
+            console.log("test point 101")
+            }catch(err){
+                this.errors.push("Please try again later.")
+                
+                
+                throw this.errors
+                // server problem, not users' or database's connection problem.
+                console.log("line 100 test")
+                console.log(e)
+                reject(this.errors)
+            }
+
             //This mongodb method is going to return a promise, and when that promise resolves, it's going to resolve with
             //a bunch of information about the database action that just took place.
+            /*
             postsCollection.insertOne(this.data).then((info) => {
                 //console.log(this.data)
-                resolve(info.ops[0]._id)//to resolve this brand-new id
+                resolve(info.insertedId)//to resolve this brand-new id
+                console.log(info.insertedId)
+                console.log("dsds")
                 //console.log("info.ops[0]._id" + info.ops[0]._id)
         }).catch((e) => {
             this.errors.push("Please try again later.") // server problem, not users' or database's connection problem.
@@ -101,11 +128,12 @@ Post.prototype.create = function() { //where we will actually store our data in 
             console.log(e)
             reject(this.errors)
         }) // However, it is an asynchronous operation. We have no idea how long 
-          
+          */
 
         } else {
-            reject(this.errors)
+            throw (this.errors)
         }
+        
     })
 
 }

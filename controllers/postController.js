@@ -32,11 +32,18 @@ exports.create = async function(req, res) {
     })
 }
 
-exports.apiCreate = function(req, res) {
+exports.apiCreate = async function(req, res) {
     let post = new Post(req.body, req.apiUser._id) // pass the submitted form data
 
+    try{
+        const newId = await post.create()
+        res.json("Congrats.")
+    }
+    catch(err){
+        res.json(errors)
+    }
     //Set this method up so it will return a promise...
-
+    /*
     post.create().then(function(newId) {
        
        res.json("Congrats.")
@@ -44,7 +51,7 @@ exports.apiCreate = function(req, res) {
     }).catch(function(errors) {
       res.json(errors)
       console.log("line 40th, some errors, no good...")
-    })
+    })*/
 }
 
 
@@ -96,7 +103,30 @@ exports.viewEditScreen = async function(req, res) {
 
 exports.edit = async function(req, res) {
     let post = new Post(req.body, req.visitorId, req.params.id) //req.body is the blueprint of submitted data
+    try{
+        const status = await post.update()
+         // the post was sucessfully updated in the database
+        // or user did have permission, but there were validation errors.
+        if (status == "success") {
+            //post was updated in db
+            req.flash("success", "Post successfully updated.")
+            req.session.save(function() {
+                res.redirect(`/post/${req.params.id}/edit`)
+            })
+    }
+    }catch(err){
+        () => {
+            //a post with the requested ID doesn't exist
+            // or if the current visitor is not the owner of the requested post
+            req.flash("errors", "You do not have permission to perform that action.")
+            console.log("nima zhale")
+            req.session.save( function() { // manually save the data
+                res.redirect("/")
+            })
+        }
+    }
 
+    /*
     post.update().then((status) => {
         // the post was sucessfully updated in the database
         // or user did have permission, but there were validation errors.
@@ -123,8 +153,8 @@ exports.edit = async function(req, res) {
         req.session.save( function() { // manually save the data
             res.redirect("/")
         })
-    })
-}
+    })*/
+}   //closing curly bracket for the create function.
 
 
 exports.showFeedbackPage = async function (req, res) {
@@ -157,7 +187,20 @@ exports.sendFeedback = async function (req, res) {
 }
 
 
-exports.delete = function (req, res) {
+exports.delete = async function (req, res) {
+    try{
+        await Post.delete(req.params.id, req.visitorId)
+        req.flash("success", "Post successfully deleted.")
+        req.session.save(() => res.redirect(`/profile/${req.session.user.username}`))
+    }
+    catch(errors){
+
+    //If the post doesn't exist or the user tries to operate on this post is not the author of 
+    // the post: 
+    req.flash("errors", "You do not have permission to perform that action.")
+    req.session.save(() => res.redirect("/"))
+    }
+    /*
 Post.delete(req.params.id, req.visitorId).then(() => {
  req.flash("success", "Post successfully deleted.")
  req.session.save(() => res.redirect(`/profile/${req.session.user.username}`))
@@ -167,23 +210,36 @@ Post.delete(req.params.id, req.visitorId).then(() => {
     // the post: 
     req.flash("errors", "You do not have permission to perform that action.")
     req.session.save(() => res.redirect("/"))
-})
+})*/
 }
 
-exports.apiDelete = function (req, res) {
+exports.apiDelete = async function (req, res) {
+    try{
+    await  Post.delete(req.params.id, req.apiUser._id)
+    res.json("Success")
+    }catch (errors) {
+        res.json("You do not have permission to perform that action.")
+    }
+    /*
     Post.delete(req.params.id, req.apiUser._id).then(() => {
         res.json("Success")
     }).catch(() => {
     
         res.json("You do not have permission to perform that action.")
-    })
+    })*/
     }
 
 
-exports.search = function (req, res) {
+exports.search = async function (req, res) {
+    try{
+         const posts =   await Post.search(req.body.searchTerm)
+         res.json(posts)
+    }catch(errors){
+        res.json([])
+    }/*
     Post.search(req.body.searchTerm).then((posts) => {
         res.json(posts)
     }).catch( () => {
         res.json([])
-    })
+    })*/
 }
