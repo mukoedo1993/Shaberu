@@ -14,3 +14,14 @@ JWTSECRET=<secret string.>
 SENDGRIDAPIKEY=<send grid key>
 ```
 Note that I have moved from heroku to onrender for free deploying services.
+
+
+## my plans: ## 
+<ol>
+  <li> 1: add a lost-and-found page. </li>
+  <li>2: add a super admin page to clean mongodb backend easily and safely on the website. </li>
+</ol>
+
+## docs: ##
+(under construction)
+
